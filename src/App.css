@@ -14,3 +14,6 @@
     flex-direction: row;
     margin-top: 10px;
 }
+.headerCart {
+ float: right;
+}

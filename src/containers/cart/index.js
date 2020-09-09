@@ -10,11 +10,11 @@ export class Cart extends Component {
 
   render() {
     return (<div className="App-cart">
-      {this.props.inCart.length ? 'There is some items in you cart' : 'Your cart is empty :('}
+      {this.props.cart.length ? 'There is some items in you cart' : 'Your cart is empty :('}
     </div>);
   }
 }
 
-const mapStateToProps = state => ({...state});
+const mapStateToProps = state => ({cart: state.cart.inCart});
 
 export default connect(mapStateToProps)(Cart);
