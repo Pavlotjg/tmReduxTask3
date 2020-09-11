@@ -17,3 +17,8 @@
 .headerCart {
  float: right;
 }
+
+header button {
+    float: right;
+    padding: 5px;
+}

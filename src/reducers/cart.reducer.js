@@ -25,6 +25,7 @@ export function cartReducer(state = initState, action) {
         };
         inCart.push(updatedItem);
       }
+      console.log(inCart);
       return {
         ...state,
         inCart
