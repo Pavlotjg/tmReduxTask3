@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 // Components
 import SideBar from './components/sidebar';
@@ -11,25 +12,28 @@ import './App.css';
 export default class App extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {activeComponent: 'product-list'};
-    this.changeNavigation = this.changeNavigation.bind(this);
+    this.state = {};
   }
-
-  changeNavigation(prop) {
-    this.setState({activeComponent: prop});
-  }
-
   render() {
     return (
       <div className="App">
+        <Router>
         <header className="App-header">
-          <h1 className="App-title">My simple shop</h1>
+          <div ><Link to="products">My simple shop</Link></div>
+          <div className="headerCart"><Link to="cart">Cart</Link> 23</div>
         </header>
-        <div className="App-wrapper">
-          <SideBar changeNavigation={this.changeNavigation}/>
-          {this.state.activeComponent === 'product-list' ? <ProductList/> : <Cart/>}
-        </div>
+            <Switch>
+            <div className="App-wrapper">
+              <SideBar />
+              <Route path="/products">
+                <ProductList/>
+              </Route>
+              <Route path="/cart">
+                <Cart/>
+              </Route>
+            </div>
+          </Switch>
+        </Router>
       </div>
     );
   }

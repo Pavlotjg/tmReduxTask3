@@ -6,12 +6,15 @@
     padding: 0 10px;
 }
 
-.App-sidebar-nav {
-    color: #fff;
-}
-
 .App-sidebar-nav a {
     display: block;
     padding: 10px 0;
     cursor: pointer;
+}
+
+a {
+    color: white;
+}
+.active {
+    color: red;
 }
