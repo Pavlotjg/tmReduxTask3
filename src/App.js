@@ -10,6 +10,7 @@ import AddProductModal from "./components/modal/AddProductModal";
 
 // CSS
 import './App.css';
+import {asyncGetProducts} from "./actions/products.action";
 
 class App extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class App extends Component {
     };
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.getInitialStateProducts = this.getInitialStateProducts.bind(this);
   }
 
   openModal() {
@@ -26,16 +28,26 @@ class App extends Component {
       isOpen: true
     })
   };
-  closeModal(){
+
+  closeModal() {
     this.setState({
       isOpen: false
     })
   }
 
+  getInitialStateProducts() {
+    const {dispatch} = this.props;
+    dispatch(asyncGetProducts());
+  }
+
+  componentDidMount() {
+    this.getInitialStateProducts()
+  }
+
   render() {
     const {isOpen} = this.state;
-    const { cart } = this.props;
-    const counter = cart.reduce((acc, currValue) =>{
+    const {cart} = this.props;
+    const counter = cart.reduce((acc, currValue) => {
       return acc + currValue.count
     }, 0);
     return (

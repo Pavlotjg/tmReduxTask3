@@ -17,10 +17,11 @@ export class ProductList extends Component {
   sortedProducts() {
     const {sort} = this.state;
     const {products} = this.props;
+    const copyProducts = [...products];
     if (!sort) {
-      return products;
+      return copyProducts;
     }
-    return products.sort((a, b) => {
+    return copyProducts.sort((a, b) => {
       const nameA = typeof a[sort] === 'string' ? a[sort].toUpperCase() : a[sort];
       const nameB = typeof b[sort] === 'string' ? b[sort].toUpperCase() : b[sort];
       const isAvailibility = sort === 'available';
@@ -42,8 +43,8 @@ export class ProductList extends Component {
 
   renderProducts() {
     const { dispatch } = this.props;
-    return this.sortedProducts().map((item, index) => (
-      <div className="product_list_item" key={index}>
+    return this.sortedProducts().map((item) => (
+      <div className="product_list_item" key={item.productId}>
         <p>{item.name}</p>
         <p>Price: {item.price}</p>
         <p>{item.available > 0 ? 'In stock' : 'Sold out'}</p>

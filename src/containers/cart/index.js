@@ -3,18 +3,36 @@ import {connect} from 'react-redux';
 
 import './cart.css';
 import {addToCart, removeFromCart} from "../../helpers/productHelpers";
+import SuccessModal from "../../components/successModal/SuccessModal";
 
 export class Cart extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      isSuccessModalOpen: false
+    };
+
     this.renderCart = this.renderCart.bind(this);
     this.changeItemCount = this.changeItemCount.bind(this);
+    this.openSuccessModal = this.openSuccessModal.bind(this);
+    this.closeSuccessModal = this.closeSuccessModal.bind(this);
+  }
+
+  openSuccessModal() {
+    this.setState({
+      isSuccessModalOpen: true
+    })
+  };
+  closeSuccessModal(){
+    this.setState({
+      isSuccessModalOpen: false
+    })
   }
 
   changeItemCount(e, item) {
     const {value} = e.target;
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
 
     if(value > item.count){
       const { products } = this.props;
@@ -41,9 +59,14 @@ export class Cart extends Component {
   }
 
   render() {
+    const {isSuccessModalOpen} = this.state;
     return (
       <div className="App-cart">
         {this.renderCart()}
+        <button onClick={this.openSuccessModal}>Next</button>
+        <section>
+          {isSuccessModalOpen && <SuccessModal onClose={this.closeSuccessModal}/>}
+        </section>
       </div>
     )
   }

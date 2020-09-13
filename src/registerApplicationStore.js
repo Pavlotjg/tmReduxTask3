@@ -1,6 +1,8 @@
-import {createStore} from 'redux';
+import {applyMiddleware, createStore} from 'redux';
 import combineReducers from './reducers/index';
+import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 export default function setupStore() {
-  return createStore(combineReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+  return createStore(combineReducers, composeWithDevTools(applyMiddleware(thunk)))
 }
