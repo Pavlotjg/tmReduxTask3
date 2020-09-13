@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
+import {connect} from "react-redux";
 
 // Components
 import SideBar from './components/sidebar';
@@ -9,8 +10,9 @@ import AddProductModal from "./components/modal/AddProductModal";
 
 // CSS
 import './App.css';
+import {asyncGetProducts} from "./actions/products.action";
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,6 +20,7 @@ export default class App extends Component {
     };
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.getInitialStateProducts = this.getInitialStateProducts.bind(this);
   }
 
   openModal() {
@@ -25,20 +28,34 @@ export default class App extends Component {
       isOpen: true
     })
   };
-  closeModal(){
+
+  closeModal() {
     this.setState({
       isOpen: false
     })
   }
 
+  getInitialStateProducts() {
+    const {dispatch} = this.props;
+    dispatch(asyncGetProducts());
+  }
+
+  componentDidMount() {
+    this.getInitialStateProducts()
+  }
+
   render() {
     const {isOpen} = this.state;
+    const {cart} = this.props;
+    const counter = cart.reduce((acc, currValue) => {
+      return acc + currValue.count
+    }, 0);
     return (
       <div className="App">
         <Router>
           <header className="App-header">
             <div><Link to="products">My simple shop</Link></div>
-            <div className="headerCart"><Link to="cart">Cart</Link> 23</div>
+            <div className="headerCart"><Link to="cart">Cart</Link> {counter}</div>
             <button onClick={this.openModal}>New Product</button>
           </header>
           <section>
@@ -60,3 +77,9 @@ export default class App extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  cart: state.cart.inCart
+});
+
+export default connect(mapStateToProps)(App)

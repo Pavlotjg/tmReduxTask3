@@ -1,4 +1,4 @@
-import {GET_CART_ITEMS, ADD_ITEM_TO_CART, DELETE_ITEM_FROM_CART} from '../actions/cart.actions';
+import {GET_CART_ITEMS, ADD_ITEM_TO_CART, DELETE_ITEM_FROM_CART, CLEAR_CART} from '../actions/cart.actions';
 
 const initState = {
   inCart: []
@@ -47,6 +47,13 @@ export function cartReducer(state = initState, action) {
         ...state,
         inCart
       };
+    }
+
+    case CLEAR_CART: {
+      return {
+        ...state,
+        inCart: []
+      }
     }
 
     default:
