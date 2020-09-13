@@ -35,15 +35,13 @@ export function cartReducer(state = initState, action) {
 
     case DELETE_ITEM_FROM_CART: {
       const inCart = [...state.inCart];
-      const foundItem = inCart.find((item) => {
-        return item.productId === action.payload.item.productId
+      const itemIndex = inCart.findIndex((elem) => {
+        return elem.productId === action.payload.item.productId
       });
+      const foundItem = inCart[itemIndex];
       foundItem.count -= action.payload.amount;
       if (foundItem.count === 0) {
-        const removeItemFromCart = inCart.findIndex((elem) => {
-          return elem.productId === action.payload.item.productId
-        });
-        inCart.splice(removeItemFromCart, 1)
+        inCart.splice(itemIndex, 1)
       }
       return {
         ...state,
