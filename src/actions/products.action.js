@@ -1,7 +1,4 @@
 export const GET_PRODUCT_LIST = 'GET_PRODUCT_LIST';
-export const ADD_NEW_PRODUCT = 'ADD_NEW_PRODUCT';
-export const DECREASE_AVAILABLE_ITEMS = 'DECREASE_AVAILABLE_ITEMS';
-export const REFRESH_LIST_ITEM ='REFRESH_LIST_ITEM';
+export const UPDATE_PRODUCT_AVAILABILITY = 'UPDATE_PRODUCT_AVAILABILITY';
+export const ADD_PRODUCT ='ADD_PRODUCT';
 
-export const getProductList = () => ({type: GET_PRODUCT_LIST});
-export const addNewProduct = payload => ({type: ADD_NEW_PRODUCT, product: payload});

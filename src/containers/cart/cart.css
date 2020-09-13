@@ -1,5 +1,20 @@
-.App-cart {
+.App-cart{
     display: flex;
+    flex-direction: column;
     width: 100%;
-    padding: 0 10px;
+
+}
+
+.cart-item {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+}
+.cart-item button, input {
+    float: right;
+}
+.cart-item input[type=number]{
+    width: 30px;
+    margin-right: 30px;
 }

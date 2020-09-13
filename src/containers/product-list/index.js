@@ -2,17 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import './product-list.css';
-import {DECREASE_AVAILABLE_ITEMS} from "../../actions/products.action";
-import {ADD_ITEM_TO_CART} from "../../actions/cart.actions";
+import { addToCart} from "../../helpers/productHelpers";
 
 export class ProductList extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       sort: '',
     };
-    this.addToCart = this.addToCart.bind(this);
     this.sortedProducts = this.sortedProducts.bind(this);
     this.fulfillSortState = this.fulfillSortState.bind(this);
   }
@@ -44,31 +41,17 @@ export class ProductList extends Component {
   }
 
   renderProducts() {
+    const { dispatch } = this.props;
     return this.sortedProducts().map((item, index) => (
       <div className="product_list_item" key={index}>
         <p>{item.name}</p>
         <p>Price: {item.price}</p>
         <p>{item.available > 0 ? 'In stock' : 'Sold out'}</p>
-        <button className="add-to-cart-btn" disabled={item.available < 1} onClick={() => this.addToCart(item)}>Add to
+        <button className="add-to-cart-btn" disabled={item.available < 1} onClick={() => addToCart(item, dispatch, 1 )}>Add to
           card
         </button>
       </div>
     ));
-  }
-
-  addToCart(item) {
-    const {dispatch} = this.props;
-    if (item.available >= 1) {
-      dispatch({
-        type: ADD_ITEM_TO_CART,
-        payload: item
-      });
-      dispatch({
-        type: DECREASE_AVAILABLE_ITEMS,
-        payload: item
-      });
-      console.log(item);
-    }
   }
 
   render() {

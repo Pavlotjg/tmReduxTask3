@@ -1,4 +1,4 @@
-import {DECREASE_AVAILABLE_ITEMS, GET_PRODUCT_LIST, REFRESH_LIST_ITEM} from '../actions/products.action';
+import {UPDATE_PRODUCT_AVAILABILITY, GET_PRODUCT_LIST, ADD_PRODUCT} from '../actions/products.action';
 
 const initState = {
   products: [
@@ -70,23 +70,22 @@ export function productsReducer(state = initState, action) {
     case GET_PRODUCT_LIST:
       return state.products;
 
-    case REFRESH_LIST_ITEM:
+    case ADD_PRODUCT:
       const products = [...state.products];
       const newItem = action.payload;
       products.push(newItem);
-      console.log(products);
       return {
         ...state,
         products
       };
 
-    case DECREASE_AVAILABLE_ITEMS: {
+    case UPDATE_PRODUCT_AVAILABILITY: {
       const products = [...state.products];
       const foundItem = products.find((item) => {
-        return item.productId === action.payload.productId;
+        return item.productId === action.payload.item.productId;
       });
       if (foundItem) {
-        foundItem.available--;
+        foundItem.available += action.payload.amount;
       }
       return {
         ...state,

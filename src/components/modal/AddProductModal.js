@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import './addProductModal.css';
-import {REFRESH_LIST_ITEM} from "../../actions/products.action";
+import {ADD_PRODUCT} from "../../actions/products.action";
 
 function AddProductModal(props) {
 
@@ -39,7 +39,7 @@ function AddProductModal(props) {
     };
     if (newItem.name) {
       dispatch({
-        type: REFRESH_LIST_ITEM,
+        type: ADD_PRODUCT,
         payload: newItem
       });
       closeModal();
