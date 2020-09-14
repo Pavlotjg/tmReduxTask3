@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import './addProductModal.css';
 import {ADD_PRODUCT} from "../../actions/products.action";
+import {AddInfoInput, AddProductInput, BlockWindow, CloseButton, Dialog, InputContainer} from "./AddProductModalStyle";
 
 function AddProductModal(props) {
 
@@ -47,16 +47,20 @@ function AddProductModal(props) {
   }
 
   return (
-    <dialog open >
-      <button onClick={props.closeModal}>Close</button>
-      MyModal
-      <form>
-        <div>Name: <input type="text" value={itemName} onChange={setNameToState}/></div>
-        <div>Price: <input type="number" value={itemPrice} onChange={setPriceToState}/></div>
-        <div>Available: <input type="number" value={itemAvailable} onChange={setAvailableToState}/></div>
-        <div>Add to Product List: <input type="submit" onClick={addToList}/></div>
-      </form>
-    </dialog>
+    <div>
+      <BlockWindow/>
+      <Dialog open >
+        <CloseButton onClick={props.closeModal}>Close</CloseButton>
+        <span>Add Some New Product</span>
+        <form>
+          <InputContainer>Name:</InputContainer><AddInfoInput type="text" value={itemName} onChange={setNameToState}/><br/>
+          <InputContainer>Price:</InputContainer><AddInfoInput type="number" value={itemPrice} onChange={setPriceToState}/><br/>
+          <InputContainer>Available:</InputContainer> <AddInfoInput type="number" value={itemAvailable} onChange={setAvailableToState}/><br/>
+          <AddProductInput type="submit" value='Add' onClick={addToList}/>
+        </form>
+      </Dialog>
+    </div>
+
   )
 }
 

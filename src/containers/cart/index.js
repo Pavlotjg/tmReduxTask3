@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import './cart.css';
 import {addToCart, removeFromCart} from "../../helpers/productHelpers";
 import SuccessModal from "../../components/successModal/SuccessModal";
+import {AmountItemInput, CartContainer, CartItem, EmptyCart, ItemName, NextButton, RemoveButton} from "./CartStyle";
 
 export class Cart extends Component {
   constructor(props) {
@@ -48,26 +48,25 @@ export class Cart extends Component {
 
   renderCart() {
     const {dispatch} = this.props;
-    return this.props.cart.length ? this.props.cart.map((item, index) => (
-      <div className="cart-item" key={index}>
-        <div>{item.name}</div>
-        <button onClick={() => removeFromCart(item, dispatch, item.count)}>Delete</button>
-        <input type="number" value={item.count} onChange={(e) => this.changeItemCount(e, item)}/>
-      </div>
-    )) : (<div> Cart is empty </div>)
-
+    return this.props.cart.length ? this.props.cart.map((item) => (
+      <CartItem key={item.price}>
+        <ItemName>{item.name}</ItemName>
+        <RemoveButton onClick={() => removeFromCart(item, dispatch, item.count)}>Delete</RemoveButton>
+        <AmountItemInput type="number" value={item.count} onChange={(e) => this.changeItemCount(e, item)}/>
+      </CartItem>
+    )) : (<EmptyCart> Cart is empty. There is nothing to buy </EmptyCart>)
   }
 
   render() {
     const {isSuccessModalOpen} = this.state;
     return (
-      <div className="App-cart">
+      <CartContainer>
         {this.renderCart()}
-        <button onClick={this.openSuccessModal}>Next</button>
+        <NextButton onClick={this.openSuccessModal}>Next</NextButton>
         <section>
           {isSuccessModalOpen && <SuccessModal onClose={this.closeSuccessModal}/>}
         </section>
-      </div>
+      </CartContainer>
     )
   }
 }

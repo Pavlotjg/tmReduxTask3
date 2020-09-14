@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import './product-list.css';
 import { addToCart} from "../../helpers/productHelpers";
+import {AddToCartButton, ProductListItem, ProductsContainer, SortContainer} from "./ProductListStyle";
 
 export class ProductList extends Component {
   constructor(props) {
@@ -44,31 +44,31 @@ export class ProductList extends Component {
   renderProducts() {
     const { dispatch } = this.props;
     return this.sortedProducts().map((item) => (
-      <div className="product_list_item" key={item.productId}>
+      <ProductListItem  key={item.productId}>
         <p>{item.name}</p>
         <p>Price: {item.price}</p>
         <p>{item.available > 0 ? 'In stock' : 'Sold out'}</p>
-        <button className="add-to-cart-btn" disabled={item.available < 1} onClick={() => addToCart(item, dispatch, 1 )}>Add to
-          card
-        </button>
-      </div>
+        <AddToCartButton disabled={item.available < 1} onClick={() => addToCart(item, dispatch, 1 )}>Add to
+          cart
+        </AddToCartButton>
+      </ProductListItem>
     ));
   }
 
   render() {
     return (
       <div>
-        <div className="sortBtn">
-          <select name='sort' onClick={this.fulfillSortState}>
+        <SortContainer>
+          <span>Filter:</span><select name='sort' onClick={this.fulfillSortState}>
             <option value="">None</option>
             <option value="name">Name</option>
             <option value="price">Price</option>
             <option value="available">Available</option>
           </select>
-        </div>
-        <div className="App-product_list">
+        </SortContainer>
+        <ProductsContainer>
           {this.renderProducts()}
-        </div>
+        </ProductsContainer>
       </div>);
 
   }
