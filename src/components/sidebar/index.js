@@ -1,14 +1,14 @@
 import React from 'react';
-import './sidebar.css';
 import {NavLink} from "react-router-dom";
+import {MainSideBar, NavSideBar} from "./SidebarStyle";
 
 export const SideBar = () => {
-  return (<div className="App-sidebar">
-    <nav className="App-sidebar-nav">
+  return (<MainSideBar>
+    <NavSideBar>
       <NavLink to="products" activeClassName="active">Product list</NavLink>
       <NavLink to="cart" activeClassName="active">Cart</NavLink>
-    </nav>
-  </div>);
+    </NavSideBar>
+  </MainSideBar>);
 };
 
 export default SideBar;
